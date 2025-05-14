@@ -1,251 +1,324 @@
-# Tokenized Healthcare Value-Based Payment System
+# Decentralized Manufacturing Supply Network Resilience (DMSNR)
 
 ## Overview
 
-This blockchain-based platform revolutionizes healthcare payment models by implementing a transparent, secure, and efficient value-based care (VBC) system. By tokenizing the healthcare payment process, we create an immutable record of provider performance, patient attribution, quality metrics, and cost data that enables automatic, fair adjustments to reimbursements based on the actual value delivered to patients.
+DMSNR is a blockchain-powered platform designed to enhance manufacturing supply chain resilience through decentralized coordination, transparent risk management, and automated contingency activation. By leveraging distributed ledger technology, the platform provides manufacturers and suppliers with a robust framework to anticipate, mitigate, and rapidly respond to supply chain disruptions while maintaining production continuity.
 
 ## Core Components
 
-The system consists of five primary smart contracts that form a comprehensive healthcare value-based payment infrastructure:
+The system consists of five primary smart contracts that form a comprehensive supply chain resilience infrastructure:
 
-### 1. Provider Verification Contract
-- Validates and registers legitimate healthcare entities (hospitals, clinics, physicians)
-- Maintains credentials, specialties, and network affiliations
-- Implements multi-level verification processes including license validation
-- Manages provider reputation scores based on quality and cost performance
+### 1. Entity Verification Contract
+- Validates the identity and credentials of all supply chain participants
+- Implements tiered verification levels based on participant role and criticality
+- Manages digital certificates and compliance documentation
+- Maintains reputation scores based on historical performance
 - Controls access permissions to different features of the platform
+- Integrates with existing industry certification standards
 
-### 2. Patient Attribution Contract
-- Securely assigns patients to appropriate providers or care teams
-- Implements privacy-preserving mechanisms for patient data
-- Tracks patient-provider relationships over time
-- Handles changes in attribution (patient relocations, provider changes)
-- Supports various attribution models (geographic, claims-based, patient selection)
+### 2. Capacity Registration Contract
+- Records detailed production capabilities of each manufacturing node
+- Tracks available capacity, utilization levels, and production schedules
+- Maintains specifications for equipment, materials, and processes
+- Implements secure sharing of non-sensitive capacity information
+- Updates capacity status in near real-time through IoT integration
+- Identifies complementary capabilities across the network
 
-### 3. Quality Measurement Contract
-- Tracks clinical performance metrics across multiple domains
-- Implements standardized quality measures (HEDIS, MIPS, etc.)
-- Supports custom quality metrics specific to specialties
-- Enables risk-adjustment for fair provider comparison
-- Provides auditable verification of reported metrics
+### 3. Risk Assessment Contract
+- Identifies and quantifies potential disruption factors across the supply network
+- Implements risk scoring algorithms for geographic, geopolitical, and operational risks
+- Tracks dependencies between suppliers, materials, and production processes
+- Monitors external risk data through oracle integrations
+- Provides simulation capabilities for scenario planning
+- Generates automated risk alerts when thresholds are exceeded
 
-### 4. Cost Tracking Contract
-- Records all healthcare expenditures associated with attributed patients
-- Categorizes costs by service type, setting, and clinical category
-- Implements risk adjustment mechanisms for fair cost comparisons
-- Identifies cost outliers and variation patterns
-- Tracks resource utilization efficiency metrics
+### 4. Alternative Sourcing Contract
+- Manages a database of qualified backup suppliers for critical components
+- Facilitates rapid supplier discovery based on capability matching
+- Implements pre-negotiated contingency agreements with standby activation
+- Manages qualification and onboarding processes for backup suppliers
+- Tracks testing and validation of alternative materials and components
+- Provides cost impact analysis for alternative sourcing decisions
 
-### 5. Payment Adjustment Contract
-- Calculates performance-based modifications to base reimbursement rates
-- Implements shared savings distribution mechanisms
-- Automates bonus payments and penalties based on quality and cost metrics
-- Handles bundled payment reconciliation
-- Provides transparent audit trails for all payment adjustments
+### 5. Disruption Response Contract
+- Coordinates real-time supply chain adjustments during disruption events
+- Implements automated triggering of contingency plans based on predefined conditions
+- Manages priority allocation of constrained resources
+- Coordinates logistics rerouting and production schedule adjustments
+- Tracks recovery metrics and progress toward normal operations
+- Documents lessons learned and updates response protocols
 
 ## Technical Architecture
 
 ### Blockchain Infrastructure
-- Built on a permissioned enterprise blockchain (Hyperledger Fabric or Enterprise Ethereum)
-- Implements HIPAA-compliant data storage and transmission
-- Uses zero-knowledge proofs for sensitive health information
-- Supports high transaction throughput for large healthcare networks
+- Built on an enterprise-grade permissioned blockchain (Hyperledger Fabric or Corda)
+- Implements secure multi-party computation for sensitive capacity data
+- Uses distributed file storage for technical specifications and certifications
+- Supports high transaction throughput for real-time supply chain events
+- Leverages smart contract-based business logic for automated response execution
 
 ### Security Features
-- Healthcare-specific identity and access management
-- Advanced encryption for protected health information (PHI)
-- Separation of identifiable and clinical data
-- Regular compliance audits and vulnerability assessments
-- Multi-signature approval for critical contract updates
+- Fine-grained access control based on organizational role
+- Zero-knowledge proofs for preserving competitive information
+- Multi-signature approvals for critical response actions
+- Encryption of sensitive production and capacity data
+- Regular security audits and penetration testing
 
 ### Integration Capabilities
-- HL7 FHIR API compatibility for clinical data exchange
-- Integration with electronic health record (EHR) systems
-- Connectivity with claims processing and billing systems
-- Interoperability with existing healthcare data warehouses
-- Support for standard medical coding systems (ICD-10, CPT, SNOMED CT)
+- APIs for ERP and MES systems integration
+- IoT device connectivity for real-time production monitoring
+- Data exchange protocols with logistics management systems
+- Integration with weather, geopolitical, and market risk data feeds
+- Compatibility with industry standard EDI formats
 
 ## Getting Started
 
 ### Prerequisites
 - Node.js (v16+)
-- Hyperledger Fabric or Enterprise Ethereum client
-- Healthcare data connector modules
-- HIPAA-compliant storage configuration
-- Access credentials to healthcare network
+- Docker and Docker Compose
+- Hyperledger Fabric or Corda runtime
+- Access credentials to the manufacturing network
+- API keys for relevant external data services
 
 ### Installation
 ```bash
 # Clone the repository
-git clone https://github.com/your-organization/tokenized-healthcare-vbp.git
-cd tokenized-healthcare-vbp
+git clone https://github.com/your-organization/dmsnr-platform.git
+cd dmsnr-platform
 
 # Install dependencies
 npm install
 
 # Configure environment
 cp .env.example .env
-# Edit .env with your network settings
+# Edit .env with your network settings and API keys
 
-# Compile smart contracts
-npm run compile
+# Start local blockchain network
+./scripts/start-network.sh
 ```
 
 ### Deployment
 ```bash
-# Deploy to development environment
+# Deploy core contracts to development environment
 npm run deploy:dev
 
-# Deploy to testing environment with simulated data
+# Deploy to testing environment with simulated disruption scenarios
 npm run deploy:test
 
-# Deploy to production environment
+# Deploy to production network
 npm run deploy:prod
 ```
 
 ## Usage
 
-### Provider Registration and Verification
+### Entity Registration and Verification
 ```javascript
-// Example of registering a new healthcare provider
-const ProviderVerification = artifacts.require("ProviderVerification");
-const providerContract = await ProviderVerification.deployed();
+// Example of registering a new manufacturing entity
+const EntityVerification = artifacts.require("EntityVerification");
+const entityContract = await EntityVerification.deployed();
 
-await providerContract.registerProvider(
-  "Provider Name",
-  "NPI Number",
-  "License Number",
-  "Specialty Code",
-  "Credentials Hash",
-  { from: providerAdminAddress }
+await entityContract.registerEntity(
+  "Manufacturer Name",
+  "Manufacturing",
+  "DUNS Number",
+  "Company Registration Hash",
+  locationData,
+  { from: entityAdminAddress }
 );
 
-// Verification by authorized entity
-await providerContract.verifyProvider(
-  providerID,
+// Verification by authorized industry validator
+await entityContract.verifyEntity(
+  entityID,
+  verificationLevel,
   verificationDocumentHash,
+  expirationDate,
+  { from: networkValidatorAddress }
+);
+```
+
+### Capacity Registration
+```javascript
+// Example of registering production capacity
+const CapacityRegistration = artifacts.require("CapacityRegistration");
+const capacityContract = await CapacityRegistration.deployed();
+
+await capacityContract.registerCapacity(
+  entityID,
+  facilityID,
+  productionLineID,
+  capabilityCategories,
+  maxCapacity,
+  currentUtilization,
+  equipmentSpecificationsHash,
+  { from: authorizedEntityAddress }
+);
+
+// Update current capacity utilization
+await capacityContract.updateUtilization(
+  facilityID,
+  productionLineID,
+  currentUtilization,
+  availableCapacity,
+  maintenanceStatus,
+  { from: authorizedEntityAddress }
+);
+```
+
+### Risk Assessment
+```javascript
+// Example of registering a supply chain risk
+const RiskAssessment = artifacts.require("RiskAssessment");
+const riskContract = await RiskAssessment.deployed();
+
+await riskContract.registerRisk(
+  entityID,
+  riskCategory,
+  riskDescription,
+  impactLevel,
+  probabilityScore,
+  affectedComponents,
+  mitigationMeasuresHash,
+  { from: authorizedRiskManager }
+);
+
+// Conduct network-wide risk analysis
+await riskContract.analyzeNetworkRisks(
+  supplyChainID,
+  analysisParameters,
   { from: networkAdminAddress }
 );
 ```
 
-### Patient Attribution
+### Alternative Sourcing Management
 ```javascript
-// Example of attributing patients to providers
-const PatientAttribution = artifacts.require("PatientAttribution");
-const attributionContract = await PatientAttribution.deployed();
+// Example of registering an alternative supplier
+const AlternativeSourcing = artifacts.require("AlternativeSourcing");
+const sourcingContract = await AlternativeSourcing.deployed();
 
-await attributionContract.attributePatient(
-  patientHashedID,
-  providerID,
-  attributionReason,
-  startDate,
-  { from: authorizedAttributorAddress }
+await sourcingContract.registerAlternativeSupplier(
+  primarySupplierID,
+  componentID,
+  alternativeSupplierID,
+  qualificationStatus,
+  leadTimeParameters,
+  costFactorPercentage,
+  contractTermsHash,
+  { from: supplyChainManagerAddress }
+);
+
+// Validate alternative component or material
+await sourcingContract.validateAlternative(
+  componentID,
+  alternativeComponentID,
+  testResultsHash,
+  compatibilityScore,
+  { from: qualityAssuranceAddress }
 );
 ```
 
-### Quality Reporting
+### Disruption Response Activation
 ```javascript
-// Example of submitting quality metrics
-const QualityMeasurement = artifacts.require("QualityMeasurement");
-const qualityContract = await QualityMeasurement.deployed();
+// Example of activating a disruption response
+const DisruptionResponse = artifacts.require("DisruptionResponse");
+const responseContract = await DisruptionResponse.deployed();
 
-await qualityContract.submitMetric(
-  providerID,
-  measureID,
-  reportingPeriod,
-  numerator,
-  denominator,
-  supportingDocumentHash,
-  { from: authorizedReporterAddress }
+await responseContract.declareDisruption(
+  affectedEntityID,
+  disruptionType,
+  severity,
+  estimatedDuration,
+  affectedCapabilities,
+  evidenceHash,
+  { from: authorizedEntityAddress }
+);
+
+// Activate contingency plan
+await responseContract.activateContingency(
+  disruptionID,
+  contingencyPlanID,
+  { from: responseCoordinatorAddress }
+);
+
+// Track recovery progress
+await responseContract.updateRecoveryStatus(
+  disruptionID,
+  recoveryPercentage,
+  revisedEstimatedRecoveryDate,
+  milestonesCompletedHash,
+  { from: responseCoordinatorAddress }
 );
 ```
 
-### Cost Data Submission
-```javascript
-// Example of recording healthcare costs
-const CostTracking = artifacts.require("CostTracking");
-const costContract = await CostTracking.deployed();
+## Real-time Monitoring Dashboard
 
-await costContract.recordCost(
-  patientHashedID,
-  providerID,
-  serviceCategory,
-  amount,
-  serviceDate,
-  claimHash,
-  { from: authorizedFinancialEntity }
-);
-```
+The platform includes a comprehensive dashboard for monitoring supply chain resilience metrics:
 
-### Payment Adjustment
-```javascript
-// Example of calculating payment adjustments
-const PaymentAdjustment = artifacts.require("PaymentAdjustment");
-const paymentContract = await PaymentAdjustment.deployed();
-
-await paymentContract.calculateAdjustment(
-  providerID,
-  performancePeriod,
-  { from: networkAdminAddress }
-);
-
-// Retrieving adjustment information
-const adjustment = await paymentContract.getAdjustmentDetails(
-  providerID,
-  performancePeriod
-);
-```
+- Network-wide risk heatmap with geographic visualization
+- Capacity utilization and availability tracking
+- Disruption event monitoring and response coordination
+- Alternative supplier activation status
+- Recovery progress tracking
+- Historical resilience performance analytics
 
 ## Governance Model
 
 The platform implements a consortium governance structure with representatives from:
 
-1. Healthcare providers
-2. Payer organizations
-3. Patient advocacy groups
-4. Regulatory compliance experts
-5. Technical maintenance team
+1. Major manufacturers and OEMs
+2. Tier 1-3 suppliers
+3. Industry associations and standards bodies
+4. Technology maintenance partners
+5. Risk management experts
 
 Key governance functions include:
-- Approving changes to quality metrics and measurement methodologies
-- Setting thresholds for payment adjustments
-- Updating risk adjustment algorithms
-- Resolving disputes between participants
-- Ensuring compliance with evolving regulations
+- Approving changes to risk assessment methodologies
+- Setting verification standards for network participants
+- Resolving disputes between supply chain partners
+- Updating response protocols based on lessons learned
+- Managing network-wide security and compliance
 
 ## Roadmap
 
 ### Phase 1: Foundation (Q3 2023)
-- Deploy Provider Verification and Patient Attribution contracts
-- Implement basic data integration with test EHR systems
-- Complete initial security and HIPAA compliance audit
+- Deploy Entity Verification and Capacity Registration contracts
+- Implement basic integration with ERP systems
+- Complete initial security and performance testing
 
-### Phase 2: Measurement Systems (Q4 2023)
-- Deploy Quality Measurement and Cost Tracking contracts
-- Develop dashboards for providers to monitor performance
-- Implement initial set of standard quality measures
+### Phase 2: Risk Intelligence (Q4 2023)
+- Deploy Risk Assessment contract
+- Integrate external data sources for risk factors
+- Develop baseline risk visualizations and alerting
 
-### Phase 3: Payment Mechanisms (Q1 2024)
-- Deploy Payment Adjustment contract
-- Implement first value-based payment models
-- Begin pilot with select provider networks
+### Phase 3: Resilience Mechanisms (Q1 2024)
+- Deploy Alternative Sourcing and Disruption Response contracts
+- Implement automated contingency activation
+- Begin pilot with select manufacturing network
 
 ### Phase 4: Advanced Features (Q2-Q3 2024)
-- Add patient engagement and outcome reporting
-- Implement advanced risk adjustment algorithms
-- Develop predictive analytics for performance improvement
+- Add AI-powered risk prediction capabilities
+- Implement simulation engine for response planning
+- Develop cross-network resilience scoring
+- Enable dynamic capacity reallocation during disruptions
 
-## Compliance and Regulatory Considerations
+## Case Studies
 
-This system is designed to comply with:
-- Health Insurance Portability and Accountability Act (HIPAA)
-- 21st Century Cures Act information blocking provisions
-- Office of the National Coordinator for Health IT (ONC) interoperability standards
-- Center for Medicare and Medicaid Services (CMS) value-based care program requirements
+### Semiconductor Shortage Response
+The platform was successfully used by a network of electronics manufacturers to:
+- Identify at-risk components 3 months ahead of actual shortages
+- Pre-qualify 37 alternative suppliers before disruption impact
+- Reduce production downtime by 64% compared to non-participating competitors
+- Coordinate shared capacity during peak shortage periods
+
+### Hurricane Recovery Coordination
+Following a major hurricane affecting the Gulf Coast:
+- Affected suppliers automatically triggered disruption protocols
+- 89% of critical production was rerouted within 48 hours
+- Recovery time was reduced by 15 days on average
+- Real-time capacity visibility enabled prioritization of medical component production
 
 ## Contributing
 
-We welcome contributions from healthcare technology experts, value-based care specialists, and blockchain developers. Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+We welcome contributions from manufacturing technology experts, supply chain specialists, and blockchain developers. Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
 
 ## License
 
@@ -254,12 +327,12 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE.md](./L
 ## Contact
 
 For questions and support, please contact:
-- Email: support@healthcare-vbp.io
-- Slack: [Join our community](https://healthcare-vbp.slack.com)
-- Twitter: [@HealthcareVBP](https://twitter.com/HealthcareVBP)
+- Email: resilience@dmsnr-platform.io
+- Slack: [Join our community](https://dmsnr-platform.slack.com)
+- Twitter: [@DMSNRplatform](https://twitter.com/DMSNRplatform)
 
 ## Acknowledgements
 
-- [HL7 FHIR](https://www.hl7.org/fhir/) for healthcare data standards
-- [OpenZeppelin](https://openzeppelin.com/) for secure smart contract templates
-- [Hyperledger Healthcare SIG](https://www.hyperledger.org/learn/special-interest-groups-and-working-groups) for blockchain healthcare guidance
+- [Hyperledger Foundation](https://www.hyperledger.org/) for blockchain infrastructure
+- [NIST Manufacturing Extension Partnership](https://www.nist.gov/mep) for resilience frameworks
+- [Supply Chain Operations Reference (SCOR) model](https://scor.ascm.org/) for process definitions
